@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{product.name}}
+{% endblock %}
+
+{% block content %}
+    <img src="{% if product.image %}{{product.image.url}}{% endif %}" alt="" class="">
+    <p>{{product.name}}</p>
+    <p><a href="{{product.category.get_absolute_url}}">{{product.category}}</a></p>
+    {% if product.description %}
+    <p>{{product.description }}</p>
+    {% endif %}
+    <p>{{product.price}}</p>
+    <form action="{% url 'cart:cart_add' product.id %}" method="post">
+        {% csrf_token %}
+        {{cart_product_form}}
+        <input type="submit" value="Add to cart">
+    </form>
+   
+
+<h2 class="">Similar Products</h2>
+{% for item in  related_products %}
+<p>
+    <a href="{{item.get_absolute_url}}" class="">{{item.name}}</a></p>
+<img src="{{item.image.url}}" alt="">
+<p>{{item.price}}</p>
+{% endfor %}
+{% endblock %}

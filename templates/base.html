@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} | Shop</title>
+</head>
+<body>
+    <div style="background-color:green; color: white; font-weight: bold; font-size: 20px; width: 200px; height: 100px; border-radius: 20px;padding: 10px;display: flex; justify-content: center; align-items: center; flex-direction: column;">
+        {% with total_items=cart|length %}
+         {% if total_items > 0 %}
+         your cart:
+         <a href="{% url 'cart:cart_detail' %}" style="text-decoration:none; color:white">
+            {{total_items}} item{{ total_items|pluralize}},
+            ${{cart.get_total_price}}
+         </a>
+          {% elif not order %}
+          <p>Your cart is empty</p>
+          {% endif %}
+        {% endwith %}
+    </div>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

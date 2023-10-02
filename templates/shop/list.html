@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{% if category %}
+{{category.name}}
+{% else %}
+Products
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<h3>Categories</h3>
+<ul style="list-style: none; font-size: 30px;">
+  <li {% if not category %} class="selected" {% endif %}>
+    <a href="{% url 'shop:list'%}" style="text-decoration: none;">All</a>
+  </li> 
+  {% for c in categories %}
+  <li {% if category.slug == c.slug %} style="color:red; "{% endif %}>
+    <a href="{{c.get_absolute_url}}" style="text-decoration: none;">{{c.name}}</a>
+  </li>
+  {% endfor %}
+</ul>
+<div class="">
+    <h1 style="color: blue; font-size: 30px; text-align: center;">
+        {% if category %}
+        {{category.name}}
+        {% else %}
+        Products
+        {% endif %}
+
+    </h1>
+    {% for product in products %}
+    <a href="{{product.get_absolute_url}}" class="">
+        <img src="{% if product.image%}{{product.image.url}}{% endif %}" style="width: 200px; height: 200px;" class="">
+        <p>{{product.name}}</p>
+        <p>{{product.price}}</p>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}
