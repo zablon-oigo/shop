@@ -1,0 +1,29 @@
+<form action="{% url 'accounts:register' %}" method="post">
+    {{form.non_field_errors }}
+    <div>
+        <label for="">Username:</label>
+        {{form.username}}
+    </div>
+    <div>
+        <label for="">Email:</label>
+        {{form.email}}
+    </div>
+    <div>
+        <label for="">Password:</label>
+        {{form.password}}
+    </div>
+    <div>
+        <label for="">Repeat Password:</label>
+        {{form.password2}}
+    </div>
+    {%  if form.errors or form.non_field_errors %}
+        {% for field in form %}
+        <div>
+            {{field.errors}}
+        </div>
+        {% endfor %}
+        {{form.non_field_errors}}
+        {% endif %}
+    {% csrf_token %}
+    <input type="submit" value="Log in" class="">
+</form>

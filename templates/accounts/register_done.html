@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Login
+{% endblock %}
+{% block  content %}
+<h1>Welcome {{user.username}}</h1>
+<hr>
+<p>Please use this link to <a href="{% url 'accounts:login' %}">Log in</a></p>
+{% endblock %}
