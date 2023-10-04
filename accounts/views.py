@@ -15,11 +15,9 @@ def sign_in(request):
                 login(request, user)
                 messages.info(request,'Log in request was successfully received')
                 return redirect('shop:list')
-            
-    else:
         messages.error(request,'Invalid Username or Password')
-        form=LoginForm()
-        return render(request,'accounts/login.html',{'form':form})
+    form=LoginForm()
+    return render(request,'accounts/login.html',{'form':form})
 
 
 
@@ -31,11 +29,11 @@ def sign_up(request):
             user.username=user.username.lower()
             user.save()
             messages.info(request,'Your account was successfully created')
-            return render(request,'account/register_done.html',{'user':user})
-        else:
-            messages.error(request,'Please Correct the Following Error')
-            form=UserRegistrationForm()
-            return render(request,'accounts/register.html',{'form':form})
+            return render(request,'accounts/register_done.html',{'user':user})
+    else:
+            # messages.error(request,'Please Correct the Following Error')
+        form=UserRegistrationForm()
+    return render(request,'accounts/register.html',{'form':form})
 
 def sign_out(request):
     logout(request)

@@ -19,6 +19,15 @@
           {% endif %}
         {% endwith %}
     </div>
+    {% if messages %}
+      {% for message in messages %}
+      <p>{{message}}</p>
+      {% endfor %}
+      {% endif %}
+    <a href="{% url 'accounts:logout' %}" class="">Logout</a>
+    <a href="{% url 'accounts:login' %}" class="">Login</a>
+    <a href="{% url 'accounts:register' %}" class="">Register</a>
+
     {% block content %}
     {% endblock %}
 </body>
