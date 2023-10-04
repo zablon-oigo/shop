@@ -17,6 +17,7 @@ Checkout
 </ul>
 <p>Total: ${{ cart.get_total_price }}</p>
 <form action="" method="post">
+    {{form.as_p}}
     {% csrf_token %}
     <input type="submit" value="Place Order">
 </form>
