@@ -15,6 +15,7 @@ def sign_in(request):
                 login(request, user)
                 messages.info(request,'Log in request was successfully received')
                 return redirect('shop:list')
+ 
         messages.error(request,'Invalid Username or Password')
     form=LoginForm()
     return render(request,'accounts/login.html',{'form':form})
