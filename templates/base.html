@@ -7,7 +7,12 @@
     <title>{% block title %}{% endblock %} | Shop</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
-<body class=" ">
+<body class="bg-slate-50">
+ <header class="bg-teal-700 p-6 sticky z-10">
+       <nav class="max-w-4xl mx-auto flex items-center justify-between">
+        <a href="{% url 'shop:list' %}" class="text-3xl text-white">Shop</a>
+       </nav>
+ </header> 
     <div class="rounded-xl p-6">
         {% with total_items=cart|length %}
          {% if total_items > 0 %}
@@ -35,5 +40,46 @@
 
     {% block content %}
     {% endblock %}
+
+    <footer class="bg-teal-700 p-6 text-white">
+      <div class="max-w-4xl mx-auto">
+        <div class=" flex flex-col justify-around sm:flex-row">
+          <div class="sm:w-1/2 w-full mb-3 sm:m-2">
+            <h2 class="text-2xl font-medium">About</h2>
+            <p class="text-xl">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus vitae omnis dolor cum, enim quaerat illo est delectus tenetur officiis?</p>
+          </div>
+          <div class="sm:w-1/2 mb-3 sm:m-2 w-full flex flex-col sm:flex-row justify-around">
+            <div class="w-full mb-2">
+              <h2 class="text-2xl font-medium">Quick Links</h2>
+            <ul class="space-y-2">
+              <li><a href="" class="text-xl hover:opacity-70">Shop</a></li>
+              <li><a href="" class="text-xl hover:opacity-70">Contact</a></li>
+              <li><a href="" class="text-xl hover:opacity-70">Privacy Policy</a></li>
+              <li><a href="" class="text-xl hover:opacity-70">Terms of Use</a></li>
+            </ul>
+            </div>
+            <div class="w-full mb-2">
+              <h2 class="text-2xl font-semibold">Location</h2>
+              <p class="text-xl"><address>
+                Lorem ipsum dolor sit.<br>
+                P.O Box 0001-00 <br> 
+                Nairobi
+              </address></p>
+              <div class="">
+                <h4 class="text-2xl">Social</h4>
+                <a href=""><i class="fa-brands fa-facebook bg-blue-500 p-2 font-semibold text-white inline-flex items-center space-x-2 rounded "></i></a>
+                <a href=""><i class="fa-brands fa-twitter  bg-blue-400 p-2 font-semibold text-white inline-flex items-center space-x-2 rounded"></i></a>
+                <a href="" class=""><i class="fa-brands fa-youtube bg-red-500 p-2 font-semibold text-white inline-flex items-center space-x-2 rounded"></i></a>
+
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        <p class="text-xl text-center">&copy; Copyright {% now 'Y' %}</p>
+      </div>
+      
+    </footer>
+    <script src="https://kit.fontawesome.com/a0e99f8a3c.js" crossorigin="anonymous"></script>
 </body>
 </html>
