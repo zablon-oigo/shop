@@ -1,30 +1,45 @@
-<form action="{% url 'accounts:register' %}" method="post">
-    {% csrf_token %}
-    {{form.non_field_errors }}
-    <div>
-        <label for="">Username:</label>
-        {{form.username}}
+{% extends 'base.html' %}
+{% block title %}
+Register
+{% endblock %}
+{% block content %}
+<div class="max-w 4xl mx-auto  p-8">
+    <div class="max-w-xs mx-auto  p-6 bg-gray-100 rounded-lg shadow-2xl">
+        <h2 class="text-gray-800 font-semibold text-center text-3xl mb-2 ">Create Account</h2>
+        <form action="{% url 'accounts:register' %}" method="post">
+            {% csrf_token %}
+            {{form.non_field_errors }}
+            <div class="mb-3">
+                <label class="text-xl text-gray-800 block">Username:</label>
+                {{form.username}}
+            </div>
+            <div class="mb-3">
+                <label class="text-xl text-gray-800 block">Email:</label>
+                {{form.email}}
+            </div>
+            <div class="mb-3">
+                <label class="text-xl text-gray-800 block">Password:</label>
+                {{form.password1}}
+            </div>
+            <div class="mb-3">
+                <label class="text-xl text-gray-800 block">Repeat Password:</label>
+                {{form.password2}}
+            </div>
+            {%  if form.errors or form.non_field_errors %}
+                <div class="m-2 bg-red-500 rounded-lg p-4 text-white font-semibold">
+                    {% for field in form %}
+                    {{field.errors}}
+                    {% endfor %}
+                </div>
+                
+                {{form.non_field_errors}}
+                {% endif %}
+            
+            <input type="submit" value="register" class="w-full bg-blue-500 text-white hover:bg-blue-700 rounded-lg px-6 py-4 font-semibold">
+        </form>
+        <p class="m-2 text-sm">Already have an account ? <span class="text-blue-700 underline"><a href="{% url 'accounts:login' %}" class="">Log in</a></span></p>
     </div>
-    <div>
-        <label for="">Email:</label>
-        {{form.email}}
-    </div>
-    <div>
-        <label for="">Password:</label>
-        {{form.password1}}
-    </div>
-    <div>
-        <label for="">Repeat Password:</label>
-        {{form.password2}}
-    </div>
-    {%  if form.errors or form.non_field_errors %}
-        {% for field in form %}
-        <div style="background-color: red; padding: 30px; color: white; font-weight: bold;font-size: 20px;">
-            {{field.errors}}
-        </div>
-        {% endfor %}
-        {{form.non_field_errors}}
-        {% endif %}
     
-    <input type="submit" value="register" class="">
-</form>
+</div>
+
+{% endblock %}

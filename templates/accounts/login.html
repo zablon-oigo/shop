@@ -4,15 +4,24 @@
 Login
 {% endblock %}
 {% block  content %}
-<form action="{% url 'accounts:login' %}" method="post">
-    {% for field in form %}
-    <div>
-        <label for="">{{field.label_tag}}</label>
+<div class="max-w-4xl mx-auto  bg-gray-100">
+    <div class="max-w-xs mx-auto my-20 p-4 rounded-lg">
+        <h2 class="text-3xl text-center font-semibold text-gray-800">Log in</h2>
+        <form action="{% url 'accounts:login' %}" method="post">
+            {% for field in form %}
+            <div class="mb-2">
+                <label class="text-xl text-gray-800 block">{{field.label_tag}}</label>
+                {{field}}
+            </div>
+            
+            {% endfor %}
+            {% csrf_token %}
+            <input type="submit" value="Log in" class="bg-blue-500 text-white rounded-lg font-semibold w-full px-6 py-4 hover:bg-blue-700">
+        </form>
+        <p class="m-2 text-sm">Don't have an account ? <span class="text-blue-700 underline"><a href="{% url 'accounts:register' %}" class="">Sign up</a></span></p>
     </div>
-    {{field}}
-    {% endfor %}
-    {% csrf_token %}
-    <input type="submit" value="Log in" class="">
-</form>
+    
+</div>
+
 
 {% endblock %}
