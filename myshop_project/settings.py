@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
+    'payment.apps.PaymentConfig',
 ]
 
 MIDDLEWARE = [
@@ -133,3 +134,8 @@ MEDIA_ROOT=BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Stripe settings
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51NyCScDUpMgarkLqYTI4TD25wYKT1xdEphkbKEx7PuPC2RjFzmobXDqXkQJMdrDmmOVYfFEuN9n5W1nD98r6BsSb00iVwEOZ4I' # Publishable key
+STRIPE_SECRET_KEY = 'sk_test_51NyCScDUpMgarkLqNdI40mwAZCumbZ1LroHHIC2WcdOwoOreDt32I4k4HAHuL5Iq5Qme0ikdz6EQ1FRnWBwLsyk500BPtoxI59' # Secret key
+STRIPE_API_VERSION = '2022-08-01'

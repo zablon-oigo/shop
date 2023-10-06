@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth import login,logout,authenticate
 from django.contrib import messages
 from .forms import LoginForm,UserRegistrationForm
-
+from .models import Profile
 def sign_in(request):
     if request.method == 'POST':
         form=LoginForm(request.POST)
@@ -29,6 +29,7 @@ def sign_up(request):
             user=form.save(commit=False)
             user.username=user.username.lower()
             user.save()
+            Profile.objects.create(user=user)
             messages.info(request,'Your account was successfully created')
             return render(request,'accounts/register_done.html',{'user':user})
     else:
