@@ -14,7 +14,7 @@ def sign_in(request):
             if user is not None and user.is_active:
                 login(request, user)
                 messages.info(request,'Log in request was successfully received')
-                return redirect('shop:list')
+                return redirect('shop:page_view')
  
         messages.error(request,'Invalid Username or Password')
     form=LoginForm()

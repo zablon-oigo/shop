@@ -10,7 +10,7 @@
 <body class="bg-slate-50">
  <header class="bg-teal-700 p-6 sticky z-10 text-white">
        <nav class="max-w-4xl mx-auto flex items-center justify-between">
-        <a href="{% url 'shop:list' %}" class="text-3xl text-white">Shop</a>
+        <a href="{% url 'shop:page_view' %}" class="text-3xl text-white">Plant</a>
       <div class="space-x-4">
         {% if request.user.is_authenticated %}
     <a href="{% url 'accounts:logout' %}" class="text-xl">Logout</a>
