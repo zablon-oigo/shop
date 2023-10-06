@@ -1,1 +1,5 @@
 myshop
+shop\__pycache__
+myshop_project\__pycache__
+cart\__pycache__
+accounts\__pycache__
