@@ -3,3 +3,5 @@ shop\__pycache__
 myshop_project\__pycache__
 cart\__pycache__
 accounts\__pycache__
+orders\__pycache__
+payment\__pycache__
