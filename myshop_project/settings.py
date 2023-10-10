@@ -25,8 +25,8 @@ SECRET_KEY = 'django-insecure-30yl%%zw3dah9vqa+omru27zg%09&@kw!m&ap=sx(#dl+8z!rc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
+INTERNAL_IPS=["127.0.0.1"]
 
 # Application definition
 
@@ -42,7 +42,12 @@ INSTALLED_APPS = [
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
     'payment.apps.PaymentConfig',
+    # 3rd party
+    'tailwind',
+    'theme',
 ]
+TAILWIND_APP_NAME='theme'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -139,3 +144,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STRIPE_PUBLISHABLE_KEY = 'pk_test_51NyCScDUpMgarkLqYTI4TD25wYKT1xdEphkbKEx7PuPC2RjFzmobXDqXkQJMdrDmmOVYfFEuN9n5W1nD98r6BsSb00iVwEOZ4I' # Publishable key
 STRIPE_SECRET_KEY = 'sk_test_51NyCScDUpMgarkLqNdI40mwAZCumbZ1LroHHIC2WcdOwoOreDt32I4k4HAHuL5Iq5Qme0ikdz6EQ1FRnWBwLsyk500BPtoxI59' # Secret key
 STRIPE_API_VERSION = '2022-08-01'
+
+NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
