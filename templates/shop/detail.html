@@ -5,25 +5,45 @@
 {% endblock %}
 
 {% block content %}
-    <img src="{% if product.image %}{{product.image.url}}{% endif %}" alt="" class="">
-    <p>{{product.name}}</p>
-    <p><a href="{{product.category.get_absolute_url}}">{{product.category}}</a></p>
-    {% if product.description %}
-    <p>{{product.description }}</p>
-    {% endif %}
-    <p>{{product.price}}</p>
-    <form action="{% url 'cart:cart_add' product.id %}" method="post">
-        {% csrf_token %}
-        {{cart_product_form}}
-        <input type="submit" value="Add to cart">
-    </form>
-   
+<div class="max-w-5xl mx-auto bg-gray-100 h-screen p-6">
+      <div class=" bg-white shadow-2xl rounded-lg">
+        <div class="w-full flex items-center justify-between flex-col sm:flex-row">
+           <div class="w-full sm:w-1/2 ">
+            <img src="{% if product.image %}{{product.image.url}}{% endif %}" alt="" class="w-full object-center object-cover h-64 rounded-lg">
+           </div>
+           <div class="w-full sm:w-1/2 m-6">
+            <p class="text-2xl text-gray-500 font-semibold">{{product.name}}</p>
+            <p class="text-xs text-gray-200 underline">Category</p>
+            <p class="text-xl font-medium text-gray-500"><a href="{{product.category.get_absolute_url}}">{{product.category}}</a></p>
+            {% if product.description %}
+            <p class="text-gray-200 font-light sm:w-1/2 w-full"><span class="font-semibold">Description:</span> {{product.description }}</p>
+            {% endif %}
+            <p class="text-gray-500 font-semibold">Price: {{product.price}}</p>
+            <form action="{% url 'cart:cart_add' product.id %}" method="post">
+                {% csrf_token %}
+                {{cart_product_form}}
+                <input type="submit" value="Add to cart" class="bg-blue-500 rounded-lg px-6 py-4 hover:bg-blue-700 text-white font-semibold">
+            </form>
+           </div>
+        
+        </div>
+        
+      </div>
+      <div class="bg-white shadow-2xl mx-auto">
+        <h2 class="text-3xl text-center font-semibold text-gray-800">Similar Products</h2>
+        <div class="grid sm:grid-cols-3 gap-3 grid-rows-1  place-content-center">
+            {% for item in  related_products %}
+            <a href="{{item.get_absolute_url}}" class="">
+               <p class="text-xl"> {{item.name}}</p>
+                <img src="{{item.image.url}}" class="w-20 h-48">
+                <p class="text-xl">{{item.price}}</p>
+            </a></p>
+        
+            {% endfor %}
+        </div>
+       
+        </div>
+      </div>
+ 
 
-<h2 class="">Similar Products</h2>
-{% for item in  related_products %}
-<p>
-    <a href="{{item.get_absolute_url}}" class="">{{item.name}}</a></p>
-<img src="{{item.image.url}}" alt="">
-<p>{{item.price}}</p>
-{% endfor %}
 {% endblock %}
