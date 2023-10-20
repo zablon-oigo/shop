@@ -4,9 +4,11 @@
 Checkout
 {% endblock %}
 {% block content %}
-<h2>Checkout</h2>
+<div class="max-w-4xl mx-auto bg-gray-100 h-screen">
+    <div class="max-w-md mx-auto bg-white rounded-lg shadow-2xl">
+        <h2>Checkout</h2>
 
-<h3>Your order</h3>
+<h3 class="text-3xl">Your order</h3>
 <ul>
     {% for item in cart %}
     <li>
@@ -17,8 +19,17 @@ Checkout
 </ul>
 <p>Total: ${{ cart.get_total_price }}</p>
 <form action="" method="post">
-    {{form.as_p}}
+    {% for field in form %}
+    <div class="mb-3"><label for="" class="text-xl">{{field.label_tag}}</label>
+    {{field}}
+    </div>
+    {% endfor %}
     {% csrf_token %}
     <input type="submit" value="Place Order">
 </form>
+
+    </div>
+
+</div>
+
 {% endblock %}
