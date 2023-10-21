@@ -11,43 +11,68 @@
  <header class="bg-teal-700 p-6 sticky z-10 text-white">
        <nav class="max-w-4xl mx-auto flex items-center justify-between">
         <a href="{% url 'shop:page_view' %}" class="text-3xl text-white">
-          <img src="{% static 'image/logo.png' %}" class="h-20 w-20 object-center object-cover rounded">
+          <img src="{% static 'image/logo.png' %}" class="h-10 w-10 object-center object-cover rounded">
         </a>
-      <div class="space-x-4 flex items-center justify-between">
-        {% if request.user.is_authenticated %}
-    <a href="{% url 'accounts:logout' %}" class="text-xl">Logout</a>
-    <a class="text-xl">
-      {% with total_items=cart|length %}
-       {% if total_items > 0 %}
-       your cart:
-       <a href="{% url 'cart:cart_detail' %}">
-          {{total_items}} item{{ total_items|pluralize}},
-          ${{cart.get_total_price}}
-       </a>
-        {% elif not order %}
-        <span>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-          </svg> 
-        </span>       
-        {% endif %}
-      {% endwith %}
-  </a>
-    {% else %}
-    <a href="" class="text-xl">Home</a>
-    <a href="" class="text-xl">Shop</a>
-    <a href="" class="text-xl">About</a>
-    <a href="" class="text-xl">Contact</a>
-    <a href="" class="text-xl"><span>
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-      </svg> 
-    </span> 
-  </a>
-    {% endif %}
+        <button class="block sm:hidden" id="openMenu">
+          {% load static %}
+          <img src="{% static 'image/menu.svg' %}" alt="">
+        </button>
+      <div class="hidden sm:block">
+        <div class=" space-x-4 flex items-center justify-between">
+          {% if request.user.is_authenticated %}
+      <a href="{% url 'accounts:logout' %}" class="text-xl">Logout</a>
+      <a class="text-xl">
+        {% with total_items=cart|length %}
+         {% if total_items > 0 %}
+         your cart:
+         <a href="{% url 'cart:cart_detail' %}">
+            {{total_items}} item{{ total_items|pluralize}},
+            ${{cart.get_total_price}}
+         </a>
+          {% elif not order %}
+          <span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+            </svg> 
+          </span>       
+          {% endif %}
+        {% endwith %}
+    </a>
+      {% else %}
+      <a href="" class="text-xl">Home</a>
+      <a href="" class="text-xl">Shop</a>
+      <a href="" class="text-xl">About</a>
+      <a href="" class="text-xl">Contact</a>
+      <a href="" class="text-xl"><span>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+        </svg> 
+      </span> 
+    </a>
+      {% endif %}
+        </div>
       </div> 
       
       </nav>
+      <section class="hidden flex-col h-screen bg-black bg-opacity-60 w-full absolute right-0 top-0" id="menu">
+        <div class="bg-white w-3/4 h-screen right-0 top-0 absolute">
+          <div class="">
+            <button class="m-6 absolute right-0 top-0 self-end" id="closeMenu">
+              {% load static %}
+              <img src="{% static 'image/close.svg' %}" alt="">
+            </button>
+          </div>
+          <div class="mt-20">
+            <ul class="space-y-4 flex items-center flex-col">
+              <li><a href="" class=" text-gray-600 text-2xl">Home</a></li>
+              <li><a href="" class="text-gray-600 text-2xl">Shop</a></li>
+              <li><a href="" class="text-gray-600 text-2xl">Contact</a></li>
+              <li><a href="" class="text-gray-600 text-2xl">Contact</a></li>
+              <li><a href="" class="text-gray-600 text-2xl">Privacy Policy</a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
  </header> 
     
     {% if messages %}
@@ -100,6 +125,8 @@
       </div>
       
     </footer>
+    {% load static %}
+    <script src="{% static 'js/index.js' %}"></script>
     <script src="https://kit.fontawesome.com/a0e99f8a3c.js" crossorigin="anonymous"></script>
 </body>
 </html>
