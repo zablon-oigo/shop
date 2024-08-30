@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Shop | {% block title %}{% endblock%}</title>
+</head>
+<body>
+    <div class="cart">
+        {% with total_items=cart|length %}
+        {% if total_items > 0 %}
+        Your cart:
+        <a href="{% url 'cart:cart_detail' %}">
+        {{ total_items }} item{{ total_items|pluralize }},
+        ${{ cart.get_total_price }}
+        </a>
+        {% elif not order %}
+        Your cart is empty.
+        {% endif %}
+        {% endwith %}
+       </div>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

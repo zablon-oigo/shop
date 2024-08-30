@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            position: relative;
+            height: 80vh; 
+        }
+        .stamp {
+            position: absolute;
+            bottom: -80px; 
+            right: 20px; 
+            transform: rotate(-30deg);
+            font-size: 50px;
+            color: rgba(0, 0, 0, 0.2); 
+            font-weight: bold;
+            pointer-events: none; 
+        }
+        .stamp-paid {
+            color: lightgreen;
+        }
+        .stamp-pending {
+            color: red; 
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h2 style="font-size: 24px; color: #f56565;">
+            Mini Mart
+        </h2>
+        <p>
+            Invoice No: {{order.id}}<br>
+            Date: {{order.created|date:"d/m/Y"}}<br>
+        </p>
+        <div>
+            <h3 style="font-size: 18px; margin-top: 20px;">
+                Bill To
+            </h3>
+            <p>
+                {{order.first_name}} {{order.last_name}}<br>
+                {{order.email}}<br>
+                {{order.address}}<br>
+                {{order.postal_code}} {{order.city}}<br>
+            </p>
+        </div>
+        <div>
+            <h3 style="font-size: 18px; margin-top: 20px;">
+                Items Bought
+            </h3>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                <thead>
+                    <tr style="background-color: #f0f0f0;">
+                        <th style="border: 1px solid #ddd; padding: 8px;">Product</th>
+                        <th style="border: 1px solid #ddd; padding: 8px;">Price</th>
+                        <th style="border: 1px solid #ddd; padding: 8px;">Quantity</th>
+                        <th style="border: 1px solid #ddd; padding: 8px;">Cost</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in order.items.all %}
+                    <tr>
+                        <td style="border: 1px solid #ddd; padding: 8px;">{{item.product.name}}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">${{item.product.price}}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">{{item.quantity}}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">${{item.get_cost}}</td>
+                    </tr>
+                    {% endfor %}
+                    {% if order.coupon %}
+                    <tr style="background-color: #f0f0f0;">
+                        <td colspan="3" style="border: 1px solid #ddd; padding: 8px;">Discount</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">- $ {{ order.get_total_cost_before_discount|floatformat:2 }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="border: 1px solid #ddd; padding: 8px;">"{{ order.coupon.code }}" coupon ({{ order.coupon.discount }}% off)</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">- $ {{ order.get_discount|floatformat:2 }}</td>
+                    </tr>
+                    {% endif %}
+                    <tr style="background-color: #f0f0f0;">
+                        <td colspan="3" style="border: 1px solid #ddd; padding: 8px;">Total</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">$ {{ order.get_total_cost|floatformat:2 }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <span style="display: block; margin-top: 20px;">
+                <!-- Status stamp -->
+                {% if order.paid %}
+                <div class="stamp stamp-paid">PAID</div>
+                Thank you for shopping with us
+                {% else %}
+                <div class="stamp stamp-pending">PENDING</div>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+</body>
+</html>

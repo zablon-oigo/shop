@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}
+ Checkout
+{% endblock %}
+
+{% block content %}
+<h1 class="text-3xl font-bold text-red-500 mb-6">Checkout</h1>
+
+<section class="flex flex-col md:flex-row gap-10 md:gap-8">
+    <!-- Order Info Section -->
+    <div class="w-full md:w-2/3 bg-white p-6 rounded-lg shadow-lg">
+        <h3 class="text-2xl md:text-3xl text-teal-700 font-semibold mb-4">Your Order</h3>
+        <table class="w-full divide-y divide-gray-200 border-collapse">
+            <thead class="bg-gray-100">
+                <tr>
+                    <th class="border border-gray-300 px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product</th>
+                    <th class="border border-gray-300 px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
+                    <th class="border border-gray-300 px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity</th>
+                    <th class="border border-gray-300 px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                {% for item in cart %}
+                <tr>
+                    <td class="border border-gray-300 px-4 py-2 whitespace-nowrap">{{ item.product.name }}</td>
+                    <td class="border border-gray-300 px-4 py-2 whitespace-nowrap">${{ item.product.price }}</td>
+                    <td class="border border-gray-300 px-4 py-2 whitespace-nowrap">{{ item.quantity }}</td>
+                    <td class="border border-gray-300 px-4 py-2 whitespace-nowrap">${{ item.total_price }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p class="mt-4 text-lg md:text-xl font-semibold">Total: ${{ cart.get_total_price }}</p>
+    </div>
+    
+    <!-- Form Section -->
+    <div class="w-full md:w-1/3 bg-white p-6 rounded-lg shadow-lg">
+        <form method="post" class="space-y-4">
+            {% for field in form %}
+            <div>
+                <label class="block text-lg font-semibold text-gray-800 mb-1">{{ field.label_tag }}</label>
+                {{ field }}
+            </div>
+            {% endfor %}
+            <p class="mt-4">
+                <input type="submit" value="Place Order" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+            </p>
+            {% csrf_token %}
+        </form>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Cart{% endblock %}
+
+{% block content %}
+<h1 class="text-3xl font-bold text-gray-800 mb-6">Your Cart</h1>
+
+<div class="overflow-x-auto bg-white shadow-md rounded-lg">
+    <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-100">
+            <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Remove</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Unit Price</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Price</th>
+            </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+            {% for item in cart %}
+            {% with product=item.product %}
+            <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4">
+                    <a href="{{ product.get_absolute_url }}">
+                        <img src="{% if product.image %}{{ product.image.url }}{% endif %}" alt="{{ product.name }}" class="w-24 h-16 object-cover rounded-md">
+                    </a>
+                </td>
+                <td class="px-6 py-4">{{ product.name }}</td>
+                <td class="px-6 py-4">
+                    <form action="{% url 'cart:cart_add' product.id %}" method="post" class="flex items-center space-x-2">
+                        {{ item.update_quantity_form.quantity }}
+                        {{ item.update_quantity_form.override }}
+                        <input type="submit" value="Update" class="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600">
+                        {% csrf_token %}
+                    </form>
+                </td>
+                <td class="px-6 py-4">
+                    <form action="{% url 'cart:cart_remove' product.id %}" method="post">
+                        <input type="submit" value="Remove" class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">
+                        {% csrf_token %}
+                    </form>
+                </td>
+                <td class="px-6 py-4">${{ item.price }}</td>
+                <td class="px-6 py-4">${{ item.total_price }}</td>
+            </tr>
+            {% endwith %}
+            {% endfor %}
+            <tr class="bg-gray-100">
+                <td class="px-6 py-4 font-semibold text-gray-800">Total</td>
+                <td colspan="4"></td>
+                <td class="px-6 py-4 text-lg font-bold text-gray-800">${{ cart.get_total_price }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="mt-6 flex justify-between items-center">
+    <a href="{% url 'shop:product_list' %}" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Continue Shopping</a>
+    <a href="{% url 'orders:order_create' %}" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">Checkout</a>
+</div>
+{% endblock %}
