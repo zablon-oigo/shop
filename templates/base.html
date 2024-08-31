@@ -7,20 +7,35 @@
     <title>Shop | {% block title %}{% endblock%}</title>
 </head>
 <body>
-    <div class="cart">
-        {% with total_items=cart|length %}
-        {% if total_items > 0 %}
-        Your cart:
-        <a href="{% url 'cart:cart_detail' %}">
-        {{ total_items }} item{{ total_items|pluralize }},
-        ${{ cart.get_total_price }}
+    <div class="relative flex items-center justify-center bg-white border border-gray-300 rounded-lg shadow-lg p-4 max-w-xs mx-auto">
+        <a href="{% url 'cart:cart_detail' %}" class="relative flex items-center">
+            <i class="fas fa-shopping-cart text-3xl text-gray-800"></i>
+            {% with total_items=cart|length %}
+            {% if total_items > 0 %}
+            <span class="absolute top-0 right-0 -mt-1 -mr-1 bg-red-500 text-white text-xs font-bold rounded-full px-2 py-1">
+                {{ total_items }}
+            </span>
+            {% endif %}
+            {% endwith %}
         </a>
-        {% elif not order %}
-        Your cart is empty.
-        {% endif %}
-        {% endwith %}
-       </div>
+        <div class="ml-4">
+            {% with total_items=cart|length %}
+            {% if total_items > 0 %}
+            <p class="text-lg font-semibold text-gray-900">
+                {{ total_items }} item{{ total_items|pluralize }}
+            </p>
+            <p class="text-sm text-gray-600">
+                Total: ${{ cart.get_total_price }}
+            </p>
+            {% elif not order %}
+            <p class="text-gray-700">Your cart is empty.</p>
+            {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+    
     {% block content %}
     {% endblock %}
+    <script src="https://kit.fontawesome.com/a0e99f8a3c.js" crossorigin="anonymous"></script>
 </body>
 </html>
