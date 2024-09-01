@@ -27,6 +27,13 @@ services:
     container_name: celery
     depends_on:
       - rabbit
+  
+  nginx:
+    build: ./nginx
+    ports:
+      - 1337:80
+    depends_on:
+      - web
 
   db:
     image: postgres:16
