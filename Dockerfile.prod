@@ -22,3 +22,41 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . /shop/
 
+# Pull official base image
+FROM python:3.11.4-slim-buster
+
+# Create directory for the app user
+RUN mkdir -p /home/app
+
+# Create the app user
+RUN addgroup --system app && adduser --system --group app
+
+# Create the appropriate directories
+ENV HOME=/home/app
+ENV APP_HOME=/home/app/web
+RUN mkdir -p $APP_HOME/staticfiles $APP_HOME/media
+WORKDIR $APP_HOME
+
+# Install runtime dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends netcat && rm -rf /var/lib/apt/lists/*
+
+# Copy the application and dependencies from the builder stage
+COPY --from=builder /shop /shop
+COPY --from=builder /shop/requirements.txt .
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy entrypoint script
+COPY entrypoint.sh .
+RUN sed -i 's/\r$//g' entrypoint.sh
+RUN chmod +x entrypoint.sh
+
+# Chown all the files to the app user
+RUN chown -R app:app $APP_HOME
+
+# Switch to the app user
+USER app
+
+# Set the entrypoint
+ENTRYPOINT ["/home/app/web/entrypoint.sh"]
