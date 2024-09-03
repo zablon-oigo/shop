@@ -35,6 +35,7 @@ services:
   
   nginx:
     build: ./nginx
+    container_name: nginx
     volumes:
       - static_volume:/home/app/web/staticfiles
       - media_volume:/home/app/web/media
