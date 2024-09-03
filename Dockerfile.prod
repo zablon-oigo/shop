@@ -15,6 +15,10 @@ RUN apt-get update && \
     libpango-1.0-0 \
     libpangocairo-1.0-0 \
     libpangoft2-1.0-0 \
+    libharfbuzz0b \
+    libjpeg-dev \
+    libopenjp2-7-dev \
+    libffi-dev \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
@@ -35,7 +39,15 @@ ENV APP_HOME=/home/shop
 RUN mkdir -p $APP_HOME/staticfiles $APP_HOME/media
 WORKDIR $APP_HOME
 
-RUN apt-get update && apt-get install -y --no-install-recommends netcat && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    netcat \
+    libpango-1.0-0 \
+    libpangoft2-1.0-0 \
+    libharfbuzz0b \
+    libjpeg-dev \
+    libopenjp2-7-dev \
+    libffi-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /shop /home/shop
 
