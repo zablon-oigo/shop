@@ -36,6 +36,16 @@
           <p class="mt-1">${{product.price}}</p>
         </div>
       </div>
+      <div class="mt-2">
+                
+        <form action="{% url 'cart:cart_add' product.id %}" method="post" class="">
+            {% csrf_token %}
+            {{form}}
+            <button type="submit" class="w-full px-4 py-2 text-sm text-white uppercase transition-all bg-teal-500 rounded hover:translate-x-2 hover:duration-700 hover:ease-linear hover:bg-teal-800 hover:text-white">add to cart</button>
+        </button>
+        </form>
+    
+      </div>
       {% endfor %}
     </div>
   </div>
