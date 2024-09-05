@@ -8,8 +8,8 @@ services:
     command: gunicorn core.wsgi:application --bind 0.0.0.0:8000
     container_name: shop
     volumes:
-      - static_volume:/home/app/web/staticfiles
-      - media_volume:/home/app/web/media
+      - static_volume:/shop/static
+      - media_volume:/shop/media
     expose:
       - 8000
     env_file:
@@ -37,8 +37,8 @@ services:
     build: ./nginx
     container_name: nginx
     volumes:
-      - static_volume:/home/app/web/staticfiles
-      - media_volume:/home/app/web/media
+      - static_volume:/shop/static
+      - media_volume:/shop/media
     ports:
       - 80:80
     depends_on:
