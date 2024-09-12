@@ -14,3 +14,10 @@ jobs:
             - name: Build Development Docker Image
               run: |
                 docker-compose -f docker-compose.yml build
+    
+    deploy:
+      runs-on: ubuntu-latest
+      steps:
+        - name: checkout repos
+          uses: actions/checkout@v3
+           
