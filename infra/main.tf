@@ -28,3 +28,6 @@ resource "aws_subnet" "private-subnet-2" {
   vpc_id            = aws_vpc.production-vpc.id
   availability_zone = var.availability_zones[1]
 }
+resource "aws_route_table" "public-route-table" {
+  vpc_id = aws_vpc.production-vpc.id
+}
