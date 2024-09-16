@@ -8,3 +8,13 @@ resource "aws_vpc" "production-vpc" {
   enable_dns_support   = true
   enable_dns_hostnames = true
 }
+resource "aws_subnet" "public-subnet-1" {
+  cidr_block        = var.public_subnet_1_cidr
+  vpc_id            = aws_vpc.production-vpc.id
+  availability_zone = var.availability_zones[0]
+}
+resource "aws_subnet" "public-subnet-2" {
+  cidr_block        = var.public_subnet_2_cidr
+  vpc_id            = aws_vpc.production-vpc.id
+  availability_zone = var.availability_zones[1]
+}
