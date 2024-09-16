@@ -31,3 +31,6 @@ resource "aws_subnet" "private-subnet-2" {
 resource "aws_route_table" "public-route-table" {
   vpc_id = aws_vpc.production-vpc.id
 }
+resource "aws_route_table" "private-route-table" {
+  vpc_id = aws_vpc.production-vpc.id
+}
