@@ -50,3 +50,8 @@ resource "aws_route_table_association" "private-route-2-association" {
   route_table_id = aws_route_table.private-route-table.id
   subnet_id      = aws_subnet.private-subnet-2.id
 }
+resource "aws_eip" "elastic-ip-for-nat-gw" {
+  domain                       = "vpc"
+  associate_with_private_ip = "10.0.0.5"
+  depends_on                = [aws_internet_gateway.production-igw]
+}
