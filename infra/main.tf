@@ -72,3 +72,6 @@ resource "aws_lb" "production" {
   security_groups    = [aws_security_group.load-balancer.id]
   subnets            = [aws_subnet.public-subnet-1.id, aws_subnet.public-subnet-2.id]
 }
+resource "aws_alb_target_group" "default-target-group"{
+  
+}
