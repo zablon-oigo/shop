@@ -60,3 +60,8 @@ resource "aws_nat_gateway" "nat-gw" {
   subnet_id     = aws_subnet.public-subnet-1.id
   depends_on    = [aws_eip.elastic-ip-for-nat-gw]
 }
+resource "aws_route" "public-internet-igw-route" {
+  route_table_id         = aws_route_table.public-route-table.id
+  gateway_id             = aws_internet_gateway.production-igw.id
+  destination_cidr_block = "0.0.0.0/0"
+}
