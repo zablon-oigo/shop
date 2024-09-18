@@ -65,3 +65,10 @@ resource "aws_route" "public-internet-igw-route" {
   gateway_id             = aws_internet_gateway.production-igw.id
   destination_cidr_block = "0.0.0.0/0"
 }
+resource "aws_lb" "production" {
+  name               = "${var.ecs_cluster_name}-alb"
+  load_balancer_type = "application"
+  internal           = false
+  security_groups    = [aws_security_group.load-balancer.id]
+  subnets            = [aws_subnet.public-subnet-1.id, aws_subnet.public-subnet-2.id]
+}
