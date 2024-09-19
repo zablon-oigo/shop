@@ -97,3 +97,7 @@ resource "aws_alb_listener" "ecs-alb-http-listener" {
     target_group_arn = aws_alb_target_group.default-target-group.arn
   }
 }
+resource "aws_iam_role" "ecs-task-execution-role" {
+  name               = "ecs_task_execution_role_prod"
+  assume_role_policy = file("policies/ecs-role.json")
+}
