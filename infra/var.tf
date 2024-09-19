@@ -19,3 +19,7 @@ variable "availability_zones" {
   type        = list(string)
   default     = ["us-west-1b", "us-west-1c"]
 }
+variable "health_check_path" {
+  description = "Health check path for the default target group"
+  default     = "/ping/"
+}
