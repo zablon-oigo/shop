@@ -108,4 +108,5 @@ resource "aws_iam_role_policy" "ecs-task-execution-role-policy" {
 }
 resource "aws_iam_role" "ecs-service-role" {
   name               = "ecs_service_role_prod"
+  assume_role_policy = file("policies/ecs-role.json")
 }
