@@ -106,3 +106,6 @@ resource "aws_iam_role_policy" "ecs-task-execution-role-policy" {
   policy = file("policies/ecs-task-execution-policy.json")
   role   = aws_iam_role.ecs-task-execution-role.id
 }
+resource "aws_iam_role" "ecs-service-role" {
+  name               = "ecs_service_role_prod"
+}
