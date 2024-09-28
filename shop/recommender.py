@@ -21,3 +21,7 @@ class Recommender:
         else:
             flat_ids=''.join([str(id)for id in product_ids])
             tmp_key=f'tmp_{flat_ids}'
+        keys=[self.get_product_key(id) for id in product_ids]
+        r.zunionstore(tmp_key,keys)
+        r.zrem(tmp_key, *product_ids)
+        suggestions=r.zrange(tmp_key,0,-1,desc=True)[:max_results]
