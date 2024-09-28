@@ -14,3 +14,10 @@ class Recommender:
             for with_id in product_ids:
                 if product_id != with_id:
                     r.zincrby(self.get_product_key(product_id), 1, with_id)
+    def suggest_products_for(self,products,max_results=2):
+        product_ids=[p.id for p in products]
+        if len(products)==1:
+            suggestions=r.zrange(self.get_product_key(product_ids[0]),0,-1,desc=True)[:max_results]
+        else:
+            flat_ids=''.join([str(id)for id in product_ids])
+            tmp_key=f'tmp_{flat_ids}'
