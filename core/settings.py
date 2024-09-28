@@ -145,4 +145,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # CELERY_BROKER_URL = "redis://redis:6379"
 # CELERY_RESULT_BACKEND = "redis://redis:6379" 
 CELERY_BROKER_URL = 'amqp://guest:guest@rabbit:5672//'
-
+REDIS_HOST=env.str("REDIS_HOST")
+REDIS_PORT=env.int("REDIS_PORT")
+REDIS_DB=env.str("REDIS_DB")
