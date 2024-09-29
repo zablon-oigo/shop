@@ -29,30 +29,24 @@ COPY . /shop/
 # Stage 2: Final
 FROM python:3.11.4-slim-buster
 
-WORKDIR /shop
+RUN mkdir -p /home/shop
 
-RUN addgroup --system app && adduser --system --group app
+RUN addgroup --system shop && adduser --system --group shop
+ENV HOME=/home/shop
+ENV APP_HOME=/home/shop/web
+RUN mkdir $APP_HOME
+WORKDIR $APP_HOME
+RUN apt-get update && apt-get install -y --no-install-recommends netcat
+COPY --from=builder /shop ${APP_HOME}
+COPY --from=builder /shop/requirements.txt . 
+RUN pip install --upgrade pip
+RUN pip install --no-cache-dir -r requirements.txt  
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    libpango-1.0-0 \
-    libpangoft2-1.0-0 \
-    libharfbuzz0b \
-    libjpeg-dev \
-    libopenjp2-7-dev \
-    libffi-dev \
-    netcat \
-    && rm -rf /var/lib/apt/lists/*
+COPY ./entrypoint.sh .
+RUN sed -i 's/\r$//g' $APP_HOME/entrypoint.sh
+RUN chmod +x $APP_HOME/entrypoint.sh
+COPY . $APP_HOME
+RUN chown -R shop:shop $APP_HOME
+USER shop
 
-COPY --from=builder /shop /shop
-
-RUN pip install --no-cache-dir -r /shop/requirements.txt
-
-COPY entrypoint.sh .
-RUN sed -i 's/\r$//g' entrypoint.sh
-RUN chmod +x entrypoint.sh
-
-RUN chown -R app:app /shop
-RUN chmod 755 /shop
-USER app
-
-ENTRYPOINT ["/shop/entrypoint.sh"]
+ENTRYPOINT ["/home/shop/web/entrypoint.sh"]
