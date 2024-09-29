@@ -14,6 +14,7 @@ services:
     depends_on:
       - rabbit
       - db
+      - redis
 
   rabbit:
     image: rabbitmq:management
@@ -29,7 +30,11 @@ services:
     container_name: celery
     depends_on:
       - rabbit
-
+  redis:
+        image: redis:alpine 
+        container_name: redis
+        ports:
+            - "6379:6379"
   db:
     image: postgres:16
     container_name: shopDB
