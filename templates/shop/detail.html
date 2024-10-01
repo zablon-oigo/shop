@@ -27,6 +27,18 @@
                 <div class="prose font-light text-md">
                     {{ product.description|linebreaks }}
                 </div>
+                <div class="">
+                    <h2 class="">
+                        People who bought this also bought
+                    </h2>
+                    {% for p in recommended_products %}
+                    <div class="">
+                        <a href="" class="">{{p.get_absolute_url}}</a>
+                        <img src="{{ p.image.url }}" alt="" class="">
+                        <p class="">{{p.name}}</p>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
