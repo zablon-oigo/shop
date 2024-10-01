@@ -27,6 +27,7 @@
                 <div class="prose font-light text-md">
                     {{ product.description|linebreaks }}
                 </div>
+                {% if recommeded_products %}
                 <div class="">
                     <h2 class="">
                         People who bought this also bought
@@ -39,6 +40,7 @@
                     </div>
                     {% endfor %}
                 </div>
+                {% endif %}
             </div>
         </div>
     </div>
