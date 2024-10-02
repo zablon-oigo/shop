@@ -59,4 +59,20 @@
     <a href="{% url 'shop:product_list' %}" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Continue Shopping</a>
     <a href="{% url 'orders:order_create' %}" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">Checkout</a>
 </div>
+{% if recommeded_products %}
+<div class="">
+    <h3 class="">
+        People who bought this also bought
+    </h3>
+    {% for p in recommended_products %}
+    <div class="">
+       <p class="">
+        <a href="" class="">{{p.get_absolute_url}}</a>
+       </p>
+       <img src="{{p.image.url}}" alt="" class="">
+       <p class="">{{p.name}}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
 {% endblock %}
