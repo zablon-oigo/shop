@@ -4,3 +4,14 @@ db.sqlite3
 __pycache__*/
 env
 media*/
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+.terraform.tfstate.lock.info
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+*.tfvars.json
+.terraform.lock.hcl
+terraform.tfvars
