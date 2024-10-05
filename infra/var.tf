@@ -7,3 +7,6 @@ variable "access_key" {
 variable "secret_key" {
     description = "secret key"
 }
+variable "token" {
+    description = "value"
+}
